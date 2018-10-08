@@ -19,5 +19,11 @@ function Laser(spos, angle) {
     var d = dist(this.pos.x, this.pos.y, asteroid.pos.x, asteroid.pos.y);
     return(d < asteroid.r);
   }
-
+  this.offscreen = function() {
+    if((this.pos.x > width)||(this.pos.x < 0)||
+	  (this.pos.y > height)||(this.pos.y < 0)) {
+      return true;
+	  }
+	return false;
+  }
 }
