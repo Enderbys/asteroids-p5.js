@@ -3,29 +3,37 @@ var asteroids = [];
 var lasers = [];
 
 function setup() {
-  createCanvas(windowWidth,windowHeight);
+  createCanvas(400,400);
   ship = new Ship();
-  for(var i = 0; i<50; i++) {
+  for(var i = 0; i<2; i++) {
     asteroids.push(new Asteroid());
   }
 }
 
 function draw() {
   background(0);
-  ship.turn();
-  ship.render();
-  ship.update();
-  ship.edges();
 
   for(var i = 0; i<asteroids.length; i++) {
     asteroids[i].render();
     asteroids[i].update();
     asteroids[i].edges();
   }
-  for(var i= 0; i<lasers.length; i++) {
+  for(var i = 0; i<lasers.length; i++) {
     lasers[i].render();
     lasers[i].update();
+    for(var j = 0; j<asteroids.length; j++) {
+      if (lasers[i].hits(asteroids[j])) {
+        var newAsteroids = asteroids[j].breakup();
+        asteroids.push(newAsteroids);
+        asteroids.splice(i, 1);
+      }
+    }
   }
+
+  ship.turn();
+  ship.render();
+  ship.update();
+  ship.edges();
 }
 
 function keyReleased() {
