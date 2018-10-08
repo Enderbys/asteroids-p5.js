@@ -15,7 +15,7 @@ function Ship() {
       this.boost();
     }
     this.pos.add(this.vel);
-    this.vel.mult(0.999);
+    this.vel.mult(0.99);
   }
   this.boost = function() {
     var force = p5.Vector.fromAngle(this.heading);
@@ -23,11 +23,13 @@ function Ship() {
     this.vel.add(force);
   }
   this.render = function() {
+    push();
     translate(this.pos.x,this.pos.y);
     rotate(this.heading + PI/2);
-    noFill();
+    fill(51);
     stroke(255);
     triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
+    pop();
   }
   this.setRotation = function(a) {
     this.rotation = a;
